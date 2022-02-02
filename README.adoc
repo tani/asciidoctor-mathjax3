@@ -3,7 +3,7 @@
 This project provides an Asciidoctor plugin for converting block and
 inline STEM in TeX notation (latexmath) to HTML using MathJax3 library.
 
-=== Installation
+=== Installation for Ruby
 
 Add this line to your application’s Gemfile:
 
@@ -24,6 +24,13 @@ Or install it yourself as:
 $ gem install asciidoctor-mathjax3
 ....
 
+=== Installation for JavaScript
+
+[source,javascript]
+---
+npm i asciidoctor-mathjax3
+---
+
 === Usage
 
 If you invoke Asciidoctor from command-line, use option `-r` to load the
@@ -32,6 +39,15 @@ extension:
 ....
 asciidoctor -r asciidoctor-mathjax3 <filename>.adoc
 ....
+
+In JavaScript,
+
+[source,javascript]
+---
+const registry = asciidoctor.Extensions.create()
+require('asciidoctor-mathjax3')(registry)
+asciidoctor.convertFile('test.adoc', { standalone: true, attributes: { stem: 'latexmath' }, extension_registry: registry })
+---
 
 === Development
 
