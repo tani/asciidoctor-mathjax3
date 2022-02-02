@@ -2,12 +2,9 @@
   "name": "asciidoctor-mathjax3",
   "version": "0.0.1",
   "description": "Asciidoctor plugin to use mathjax3",
-  "main": "index.js",
+  "main": "asciidoctor-mathjax3.js",
   "directories": {
     "lib": "lib"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -27,5 +24,10 @@
   "homepage": "https://github.com/tani/asciidoctor-mathjax3#readme",
   "devDependencies": {
     "@asciidoctor/core": "^2.2.6"
-  }
+  },
+  "files": [
+    "README.md",
+    "LICENSE.txt",
+    "asciidoctor-mathjax3.js"
+  ]
 }
