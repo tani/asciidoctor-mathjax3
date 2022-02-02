@@ -1,4 +1,5 @@
-function AsciidoctorMathJax(registry) {
+const AsciidoctorMathJax = {}
+function register(registry) {
   registry.postprocessor(function() {
     this.process(function(_document, output) {
       cfg = new RegExp('<script type="text/x-mathjax-config">.*?</script>', 'm')
@@ -9,5 +10,6 @@ function AsciidoctorMathJax(registry) {
   })
 }
 
+AsciidoctorMathJax.register = register
 AsciidoctorMathJax.default = AsciidoctorMathJax
 module.exports = AsciidoctorMathJax
