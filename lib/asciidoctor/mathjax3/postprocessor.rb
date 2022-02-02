@@ -1,5 +1,5 @@
-require 'asciidoctor' unless RUBY_PLATFORM == 'opal'
-require 'asciidoctor/extensions' unless RUBY_PLATFORM == 'opal'
+require 'asciidoctor'
+require 'asciidoctor/extensions'
 
 module Asciidoctor::MathJax3
   class Postprocessor < Asciidoctor::Extensions::Postprocessor
