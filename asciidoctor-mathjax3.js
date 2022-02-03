@@ -32,26 +32,36 @@ const AsciidoctorMathJax = {}
 
 function register(registry) {
   registry.postprocessor(function() {
-    this.process((document, originalOutput) => {
+    this.process((adoc, output) => {
       const cfg = new RegExp('<script type="text/x-mathjax-config">[\\s\\S]*?</script>', 'm')
       const src = new RegExp('<script src=".*?TeX-MML-AM_HTMLorMML"></script>', 'm')
-      const output = originalOutput.replace(cfg, '').replace(src, '')
+
       const adaptor = liteAdaptor()
       AssistiveMmlHandler(RegisterHTMLHandler(adaptor))
       const tex = new TeX({ packages: AllPackages })
       const svg = new SVG({ fontCache: false })
-      const html = mathjax.document(output, { InputJax: tex, OutputJax: svg })
-      html.render()
-      if (Array.from(html.math).length === 0) {
-        adaptor.remove(html.outputJax.svgStyles);
-        const cache = adaptor.elementById(adaptor.body(html.document), 'MJX-SVG-global-cache');
+      const mdoc = mathjax.document(
+        output.replace(cfg, '').replace(src, ''),
+        { InputJax: tex, OutputJax: svg }
+      )
+      mdoc.render()
+      if (Array.from(mdoc.math).length === 0) {
+        adaptor.remove(mdoc.outputJax.svgStyles);
+        const cache = adaptor.elementById(adaptor.body(mdoc.document), 'MJX-SVG-global-cache');
         if (cache) adaptor.remove(cache);
       }
-      const result = juice(adaptor.outerHTML(adaptor.root(html.document)))
-      if (document.getOptions().standalone) {
-        return adaptor.doctype(html.document) + result
+      const html = juice(adaptor.outerHTML(adaptor.root(mdoc.document)))
+
+      if (adoc.getOptions().standalone) {
+        const doctype = adaptor.doctype(mdoc.document)
+        return doctype + html
       }
-      return adaptor.innerHTML(mathjax.document(result).document.body)
+
+      return adaptor.innerHTML(
+        adaptor.body(
+          mathjax.document(html).document
+        )
+      )
     })
   })
 }
