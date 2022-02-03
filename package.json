@@ -29,5 +29,9 @@
     "README.adoc",
     "LICENSE.txt",
     "asciidoctor-mathjax3.js"
-  ]
+  ],
+  "dependencies": {
+    "juice": "^8.0.0",
+    "mathjax-full": "^3.2.0"
+  }
 }
